@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-// const cors = require("cors");
+const cors = require("cors");
 const port = 3000;
 const path = require("path");
 const app = express();
@@ -9,6 +9,7 @@ const ConnectedDB = require("./db");
 
 ConnectedDB();
 app.use(express.json());
+app.use(cors());
 app.use("/", require("./routes/blog"));
 app.set("view engine", "ejs");
 app.use(express.static("views"));
@@ -52,7 +53,7 @@ app.get("/display", async (req, res) => {
     res.render("yup", { data: data });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("bye");
+    res.status(500).send("cannot fetch");
   }
 });
 
