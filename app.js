@@ -24,73 +24,82 @@ app.get("/", (req, res) => {
 });
 
 app.post("/addUser", async (req, res) => {
-  const  { UserName, age, email, password, gender, State }  = req.body;
-  const response = await fetch("http://localhost:3000/createUser", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify( { UserName, age, email, password, gender, State } ),
-  });
-  const data = await response.json();
-  console.log(data)
-  res.redirect('/display');
+  try {
+    const { UserName, age, email, password, gender, State } = req.body;
+    const response = await fetch("http://localhost:3000/createUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ UserName, age, email, password, gender, State }),
+    });
+    const data = await response.json();
+    console.log(data);
+    res.redirect("/display");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("bye");
+  }
 });
 
 app.get("/display", async (req, res) => {
-  const response = await fetch("http://localhost:3000/readfile", {
-    method: "GET",
-  });
-  const data = await response.json();
+  try {
+    const response = await fetch("http://localhost:3000/readfile", {
+      method: "GET",
+    });
+    const data = await response.json();
 
-  res.render("yup", { data: data });
+    res.render("yup", { data: data });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("bye");
+  }
 });
 
-
-app.get('/delete/:id' ,async(req,res)=>
-{
-    const id=req.params.id;
-    const response=await fetch(`http://localhost:3000/deleteUser/${id}` ,
-    {
-        method : "DELETE"
-    }
-    )
-    res.redirect('/display')
-
+app.get("/delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await fetch(`http://localhost:3000/deleteUser/${id}`, {
+      method: "DELETE",
+    });
+    res.redirect("/display");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("bye");
+  }
 });
 
-app.get('/updateForm/:id' , async(req,res)=>
-{
-    const id=req.params.id
-    const response=await fetch(`http://localhost:3000/read/${id}` ,
-    {
-        method : "GET",
-    }
-    )
-    const data = await response.json()
-    res.render('new',{data : data})
+app.get("/updateForm/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await fetch(`http://localhost:3000/read/${id}`, {
+      method: "GET",
+    });
+    const data = await response.json();
+    res.render("new", { data: data });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("bye");
+  }
+});
 
-})
-
-app.post('/updateUser/:id',async(req,res)=>
-{
-    const  { UserName, age, email, password, gender, State }  = req.body;
-    const id=req.params.id
-    const response=await fetch(`http://localhost:3000/update/${id}` ,
-    {
-        method : "PUT",
-        headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify( { UserName, age, email, password, gender, State } ),
-    }
-    )
-   res.redirect('/display')
-
-})
-
-
-
+app.post("/updateUser/:id", async (req, res) => {
+  try {
+    const { UserName, age, email, password, gender, State } = req.body;
+    const id = req.params.id;
+    const response = await fetch(`http://localhost:3000/update/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ UserName, age, email, password, gender, State }),
+    });
+    res.redirect("/display");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("bye");
+  }
+});
 
 app.listen(port, () => {
   console.log(`opened in ${port}`);
