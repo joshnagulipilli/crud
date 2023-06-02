@@ -1,0 +1,28 @@
+<%- include('partials/header'); %>
+
+    <div class="container my-5">
+      <a href="/display" style="text-decoration: none; color: violet"> >>All Users</a>
+    </div>
+
+    <div class="container my-5">
+      <form action="/addUser" method="post">
+        <input class="form-control" type="text" placeholder="username" name="UserName"/>
+        <br />
+        <input class="form-control" type="text" placeholder="age" name="age" />
+        <br />
+    <input class="form-control" type="email" placeholder="email" name="email" />
+        <br />
+        <input class="form-control" type="password" placeholder="password" name="password" />
+        <br />
+        <pre>Gender:     <input type="radio" id="female" value="female" name="gender"><label for="female">Female</label>      <input type="radio" id="female"  value="male"
+          name="gender"><label for="male">Male</label>  
+</pre>
+        <pre>Status:     <input type="radio" id="female" value="active" name="State"><label for="female">Active</label>      <input type="radio"  value="inactive"
+          id="male" name="State"><label for="male">Inactive</label>  
+</pre>
+
+        <button type="submit" class="btn btn-secondary">save</button>
+      </form>
+    </div>
+  
+    <%- include('partials/footer'); %>

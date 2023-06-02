@@ -1,0 +1,46 @@
+<%- include('partials/header'); %>
+
+<div class="container my-5">
+    <a href="/" style="text-decoration: none; color: violet"> >>Add Users</a>
+  </div>
+   <div class="container my-5">
+
+    <table class="table table-striped border">
+        <thead>
+            <tr>
+              <th scope="col">S.NO</th>
+              <th scope="col">UserName</th>
+              <th scope="col">age</th>
+              <th scope="col">email</th>
+               <th scope="col">gender</th>
+              <th scope="col">state</th>
+              <th scope="col">Action</th>
+
+           
+             
+
+            </tr>
+          </thead>
+          <% for(var i=0 ; i < data.length; i++) { %>
+
+          <tbody>
+
+            <tr>
+              <th scope="row"><%= i+1 %></th>
+              <td><%= data[i].UserName %></td>
+              <td><%= data[i].age %></td>
+              <td><%= data[i].email %></td>
+             
+            <td><%= data[i].gender %></td>
+              <td><%= data[i].State %></td>
+              <td>
+                <a href="/delete/<%=data[i]._id %>" class="mx-2" style="text-decoration: none;color: rgb(77, 74, 76) ;"><i class="fa-solid fa-trash"></i></a>
+                <a href="/updateForm/<%=data[i]._id %>" class="mx-2" style="text-decoration: none;color: rgb(197, 75, 160) ;"> <i class="fa-solid fa-wrench"></i></a>
+              </td>
+            </tr>
+            
+          </tbody>
+          <% } %>
+      </table>
+   </div>
+   <%- include('partials/footer'); %>
